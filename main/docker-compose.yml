@@ -1,0 +1,56 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+     - '2181:2181'
+    environment:
+      - ZOO_ENABLE_AUTH=yes
+      - ZOO_SERVER_USERS=kafka
+      - ZOO_SERVER_PASSWORDS=kafka_password
+    networks:
+      my-kafka-network-1:
+      
+  kafka:
+    image: 'bitnami/kafka:latest'
+    hostname: kafka
+    ports:
+     - '9092:9092'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=SASL_SSL://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=SASL_SSL://:9092
+      - KAFKA_CFG_AUTHORIZER_CLASS_NAME=kafka.security.auth.SimpleAclAuthorizer
+      - KAFKA_CFG_SUPER_USERS=User:interuser;User:user
+      - KAFKA_CFG_SECURITY_INTER_BROKER_PROTOCOL=SASL_SSL
+      - KAFKA_CFG_SASL_KERBEROS_SERVICE_NAME=kafka
+      - KAFKA_ZOOKEEPER_USER=kafka
+      - KAFKA_ZOOKEEPER_PASSWORD=kafka_password
+      - KAFKA_INTER_BROKER_USER=interuser
+      - KAFKA_INTER_BROKER_PASSWORD=interpassword
+      - KAFKA_BROKER_USER=user
+      - KAFKA_BROKER_PASSWORD=password
+      - KAFKA_CERTIFICATE_PASSWORD=test123
+      - KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=HTTPS
+      - KAFKA_SECURITY_PROTOCOL=sasl_plaintext
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_CREATE_TOPICS=OrderTopic
+      - KAFKA_CFG_SOCKET_REQUEST_MAX_BYTES=419430400
+      - KAFKA_CFG_REPLICA_FETCH_MAX_BYTES=419430400
+      - KAFKA_CFG_PRODUCER_MAX_REQUEST_SIZE=419430400
+      - KAFKA_CFG_CONSUMER_MAX_PARTITION_FETCH_BYTES=419430400
+      - KAFKA_CFG_CONNECT_PRODUCER_MAX_REQUEST_SIZE=419430400
+      - KAFKA_CFG_CONNECT_CONSUMER_MAX_PARTITION_FETCH_BYTES=419430400
+ 
+    volumes:
+      - './kafka.keystore.jks:/opt/bitnami/kafka/conf/certs/kafka.keystore.jks:ro'
+      - './kafka.truststore.jks:/opt/bitnami/kafka/conf/certs/kafka.truststore.jks:ro'
+    depends_on:
+      - zookeeper
+    networks:
+      my-kafka-network-1:
+      
+networks:
+    my-kafka-network-1:
+        

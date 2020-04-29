@@ -1,0 +1,4 @@
+Invoice Date,Invoice Number ,Item Code,Item Name,Quantity,Cost,Status,Customer Name,Address Line 1,Address Line 2,City,State/Province,Zip/Postal Code,Country,Company,Email,Phone
+11/1/2017,1001,C345,HP Pavilion DV2000,3,150000,Invoiced,Patricia Field,609 Castle Ridge Rd,Suite 445,Austin,TX,78746,United States,Sun TeK Systems,patty@pattyjams.com,9796665555
+11/2/2017,1002,C345,HP Compaq Presario,3,120000,Invoiced,Fernando Paulo,3801 Wilson,,Austin,TX,78704,United States,Sun TeK Systems,paulof@gmail.com,5647775533
+11/2/2017,1003,I098a,iPhone X,4,200000,Invoiced,Gerry Johns,600 California,,San Francisco,CA,94108,United States,Win Systems,Gerry@example.com,8752223335
