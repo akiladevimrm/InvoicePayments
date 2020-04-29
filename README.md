@@ -66,14 +66,17 @@ We have added interuser and user as super users, they have access to all the res
 # Connecting services with security enabled
 While producing and consuming messages using the bitnami/kafka image, you'll need to point to the consumer.properties and/or producer.properties file, which contains the needed configuration to work. You can find this files in the /opt/bitnami/kafka/conf directory
 Use this to generate messages using a secure setup
-
-```export KAFKA_OPTS="-Djava.security.auth.login.config=/opt/bitnami/kafka/conf/kafka_jaas.conf"
-kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic test --producer.config /opt/bitnami/kafka/conf/producer.properties```
+```
+export KAFKA_OPTS="-Djava.security.auth.login.config=/opt/bitnami/kafka/conf/kafka_jaas.conf"
+kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic test --producer.config /opt/bitnami/kafka/conf/producer.properties
+```
 
 Use this to consume messages using a secure setup
 
-```export KAFKA_OPTS="-Djava.security.auth.login.config=/opt/bitnami/kafka/conf/kafka_jaas.conf"
-kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic test --consumer.config /opt/bitnami/kafka/conf/consumer.properties```
+```
+export KAFKA_OPTS="-Djava.security.auth.login.config=/opt/bitnami/kafka/conf/kafka_jaas.conf"
+kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic test --consumer.config /opt/bitnami/kafka/conf/consumer.properties
+```
 
 # Automatically creating Topics
 If you want to have kafka-docker automatically create topics in Kafka during creation, a KAFKA_CREATE_TOPICS environment variable can be added in docker-compose.yml.
